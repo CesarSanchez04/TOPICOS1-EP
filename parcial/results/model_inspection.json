@@ -1,0 +1,61 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "architecture": "decoder-only causal transformer",
+  "num_hidden_layers": 24,
+  "hidden_size": 896,
+  "num_attention_heads_q": 14,
+  "num_key_value_heads": 2,
+  "head_dim": 64,
+  "attention_variant": "GQA (grouped-query attention)",
+  "queries_per_kv_head": 7,
+  "position_encoding": "RoPE (rope_theta=1000000.0)",
+  "context_window": 32768,
+  "vocab_size": 151936,
+  "parameters": 494032768,
+  "tokenization_example": {
+    "text": "Chinchilla disagrees with Kaplan.",
+    "tokens": [
+      "Ch",
+      "inch",
+      "illa",
+      "Ġdisagrees",
+      "Ġwith",
+      "ĠKaplan",
+      "."
+    ]
+  },
+  "causal_mask_check": {
+    "seq_len": 7,
+    "max_attention_above_diagonal": 0.0
+  },
+  "first_token_greedy_choice_Q17": "{\"",
+  "first_token_distribution_Q17": [
+    {
+      "token": "{\"",
+      "prob": 0.7735
+    },
+    {
+      "token": "```",
+      "prob": 0.1837
+    },
+    {
+      "token": "{\n",
+      "prob": 0.0412
+    },
+    {
+      "token": "``",
+      "prob": 0.0009
+    },
+    {
+      "token": "{",
+      "prob": 0.0001
+    }
+  ],
+  "kv_cache": {
+    "bytes_per_token_fp32_gqa": 24576,
+    "bytes_per_token_fp32_if_mha": 172032,
+    "reduction_factor": 7.0,
+    "longest_sequence_exp2_tokens": 1030,
+    "mb_for_longest_sequence": 25.31
+  }
+}

@@ -1,0 +1,5 @@
+difficulty,A_dense,B_hybrid_rrf,C_hybrid_rrf_reranker
+ambiguous,0.737,0.6596,0.67
+clear,0.6716,0.6776,0.6813
+distractor,0.7138,0.7138,0.7138
+hard,0.4646,0.4864,0.6343

@@ -1,0 +1,3 @@
+mode,answer_correctness,fully_correct,citation_score,total_claims,supported_claims,faithfulness_micro
+closed_book,0.0833,0.0,,7,1,0.1429
+rag,0.25,0.1667,0.2083,19,12,0.6316

@@ -1,0 +1,3 @@
+mode,n,schema_valid_rate,relation_accuracy,abstention_rate,citation_in_context_rate,citation_support_rate,semantic_problem_rate,generation_ms_mean,prompt_tokens_mean
+closed_book,12,0.5,0.0,0.0,0.0,0.0,0.1667,1755.8863,271.6667
+rag,12,0.9167,0.25,0.0,1.0,0.4278,0.4167,4040.3109,789.0833

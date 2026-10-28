@@ -1,0 +1,34 @@
+{
+  "generator": "Qwen/Qwen2.5-0.5B-Instruct",
+  "device": "cpu",
+  "dtype": "float32",
+  "decoding": {
+    "do_sample": false,
+    "max_new_tokens": 220,
+    "repetition_penalty": 1.0
+  },
+  "context_window": 32768,
+  "retrieval_condition": "C_hybrid_rrf_reranker",
+  "rag_top_k_chunks": 3,
+  "query_ids": [
+    "Q01",
+    "Q02",
+    "Q07",
+    "Q09",
+    "Q10",
+    "Q12",
+    "Q13",
+    "Q17",
+    "Q18",
+    "Q19",
+    "Q21",
+    "Q22"
+  ],
+  "seed": 42,
+  "sha256": {
+    "closed_book_system.txt": "71b15fcd0372d015ce44c564e821abc24a67bd3d0a150029c1150095eecb9434",
+    "closed_book_user.txt": "758d77c481da0c8f538dfef8107cf2308dff1ecc666408bd31d244706e668053",
+    "rag_system.txt": "e960d6783fa13b6dee20bc4ca0cab1fd500a17a0cb28c4ad18ed7a280557b97f",
+    "rag_user.txt": "41caa7e88d3ba7e58c78806105854051eb706c7714ee945941a5755748a9c6dc"
+  }
+}

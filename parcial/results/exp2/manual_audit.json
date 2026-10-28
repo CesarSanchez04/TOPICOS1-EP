@@ -1,0 +1,355 @@
+{
+  "protocol": {
+    "auditor": "César Augusto Sánchez Malaspina",
+    "date": "2026-10-27",
+    "run": "results/exp2/generations.jsonl (greedy puro, repetition_penalty=1.0)",
+    "scope": "Se audita el contenido del raw_output aunque el JSON no cumpla el schema; la validez del schema se reporta por separado en auto_summary.csv.",
+    "answer_correctness": "correct | partial | incorrect frente a reference_answers.jsonl (relación + key_facts).",
+    "citation_score": "1 = todas las citas respaldan sus afirmaciones; 0.5 = al menos una respalda y ninguna contradice; 0 = alguna cita contradice la respuesta, ninguna la respalda o no hay citas cuando se afirma algo; null = closed-book (no se esperan citas).",
+    "faithfulness": "Se descompone answer en afirmaciones atómicas. Si answer no tiene contenido (título, 'yes', 'no'), la relación afirmada cuenta como la afirmación. Las respuestas que solo se abstienen no tienen afirmaciones. En RAG se contrasta con los passages del contexto; en closed-book, con el corpus completo. Veredicto: supported | unsupported | contradicted.",
+    "note": "Auditoría manual. No se usó un LLM como juez."
+  },
+  "items": [
+    {
+      "query_id": "Q01",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Kaplan and Chinchilla agree on how to split the compute budget",
+          "verdict": "contradicted",
+          "evidence": "2203.15556-P01, 2203.15556-P02"
+        }
+      ],
+      "note": "Cita 4 passages. Los de Chinchilla (P01, P02) contradicen la respuesta y los de Kaplan (P01, P02) no tratan la asignación. 2001.08361-P03 (grado 2) no llegó al contexto: el error combina un recall parcial con un fallo de generación."
+    },
+    {
+      "query_id": "Q01",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "They agree ('yes')",
+          "verdict": "contradicted",
+          "evidence": "2203.15556-P02 vs 2001.08361-P03"
+        }
+      ],
+      "note": "Schema inválido: answer='yes' viola min_length=5."
+    },
+    {
+      "query_id": "Q02",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Emergent abilities are a real effect of scale",
+          "verdict": "contradicted",
+          "evidence": "2304.15004-P04"
+        },
+        {
+          "claim": "They can be predicted from fixed outputs, not from fundamental changes with scale",
+          "verdict": "contradicted",
+          "evidence": "2304.15004-P02 (distorsiona el argumento: lo usa para la conclusión opuesta)"
+        }
+      ],
+      "note": "Schema inválido (falta confidence). La respuesta se contradice a sí misma y usa la evidencia de Schaeffer para defender la tesis contraria."
+    },
+    {
+      "query_id": "Q02",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [],
+      "note": "answer='insufficient_evidence' con relation=neutral: no hay afirmaciones verificables."
+    },
+    {
+      "query_id": "Q07",
+      "mode": "rag",
+      "answer_correctness": "partial",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "Relation agree: retrieval beats unsupervised fine-tuning",
+          "verdict": "supported",
+          "evidence": "2312.05934-P03"
+        }
+      ],
+      "note": "La relación es correcta, pero answer es solo el título del artículo, sin explicación. Cita en bloque los 4 passages; solo P03 respalda."
+    },
+    {
+      "query_id": "Q07",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Zhang & Li (2020, JAIR 64) compared RAG and fine-tuning",
+          "verdict": "unsupported",
+          "evidence": "referencia inventada; no existe en el corpus"
+        }
+      ],
+      "note": "Alucinación bibliográfica: fabrica una cita con autores, revista y páginas. Schema inválido (falta confidence)."
+    },
+    {
+      "query_id": "Q09",
+      "mode": "rag",
+      "answer_correctness": "correct",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "MQA is much faster to decode",
+          "verdict": "supported",
+          "evidence": "1911.02150-P03"
+        },
+        {
+          "claim": "MQA incurs only minor quality degradation",
+          "verdict": "supported",
+          "evidence": "1911.02150-P03"
+        },
+        {
+          "claim": "MQA can lead to quality degradation",
+          "verdict": "supported",
+          "evidence": "2305.13245-P01"
+        },
+        {
+          "claim": "Training a separate model only for faster inference may not be desirable",
+          "verdict": "supported",
+          "evidence": "2305.13245-P01"
+        }
+      ],
+      "note": "Mejor respuesta RAG: todas sus afirmaciones son fieles. Sin embargo, no cita 1911.02150-P03, que es la fuente de dos afirmaciones, y no menciona que GQA cierra la brecha."
+    },
+    {
+      "query_id": "Q09",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [],
+      "note": "answer='insufficient_evidence'. Schema inválido."
+    },
+    {
+      "query_id": "Q10",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "DPO is superior to PPO",
+          "verdict": "contradicted",
+          "evidence": "2404.10719-P02"
+        },
+        {
+          "claim": "DPO aligns as well as or better than existing methods",
+          "verdict": "supported",
+          "evidence": "2305.18290-P04"
+        }
+      ],
+      "note": "Schema inválido (falta confidence). Cita 2404.10719-P02, que cuestiona a DPO, como si respaldara su superioridad."
+    },
+    {
+      "query_id": "Q10",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "DPO is superior ('Yes')",
+          "verdict": "contradicted",
+          "evidence": "2404.10719-P04"
+        }
+      ],
+      "note": "Schema inválido: answer='Yes'."
+    },
+    {
+      "query_id": "Q12",
+      "mode": "rag",
+      "answer_correctness": "correct",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "4-bit LLMs retain performance comparable to non-quantized ones",
+          "verdict": "supported",
+          "evidence": "2402.16775-P03"
+        },
+        {
+          "claim": "Perplexity can serve as a proxy metric for quantized LLMs",
+          "verdict": "supported",
+          "evidence": "2402.16775-P03"
+        }
+      ],
+      "note": "Correcta y fiel (casi literal de P03). Solo P03 respalda; P01 y QLoRA P03/P04 se citan en bloque."
+    },
+    {
+      "query_id": "Q12",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "4-bit quantization does not preserve performance ('no')",
+          "verdict": "contradicted",
+          "evidence": "2402.16775-P03, 2210.17323-P03"
+        }
+      ],
+      "note": "Schema inválido: answer='no'."
+    },
+    {
+      "query_id": "Q13",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Quantization always speeds up inference (agree + título de LLM.int8)",
+          "verdict": "unsupported",
+          "evidence": "2208.07339-P01/P02 hablan de memoria, no de velocidad"
+        }
+      ],
+      "note": "answer es un título. Ignora 2402.16775-P04, que estaba en el contexto y dice que la cuantización puede ralentizar la inferencia. El gold 2210.17323-P05 no se recuperó."
+    },
+    {
+      "query_id": "Q13",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Quantization always makes inference faster ('yes')",
+          "verdict": "contradicted",
+          "evidence": "2402.16775-P04"
+        }
+      ],
+      "note": "Schema inválido: answer='yes'."
+    },
+    {
+      "query_id": "Q17",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Dense retrievers outperform BM25",
+          "verdict": "supported",
+          "evidence": "2004.04906-P02 (en dominio)"
+        },
+        {
+          "claim": "...especially in zero-shot settings",
+          "verdict": "contradicted",
+          "evidence": "2104.08663-P03"
+        }
+      ],
+      "note": "Caso más claro de infidelidad: la primera cita (BEIR P03) dice lo contrario de la parte zero-shot. El modelo sigue su prior, no la evidencia."
+    },
+    {
+      "query_id": "Q17",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Dense retrievers outperform BM25 ('Yes')",
+          "verdict": "contradicted",
+          "evidence": "2104.08663-P03"
+        }
+      ],
+      "note": "Schema inválido: answer='Yes'."
+    },
+    {
+      "query_id": "Q18",
+      "mode": "rag",
+      "answer_correctness": "partial",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Ground-truth labels matter in in-context learning",
+          "verdict": "supported",
+          "evidence": "2205.12685-P03"
+        }
+      ],
+      "note": "Toma una sola postura. Cita 2202.12837-P02 (las etiquetas casi no importan), que contradice su respuesta. La relación debería ser disagree."
+    },
+    {
+      "query_id": "Q18",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [],
+      "note": "answer='neutral': no hay afirmaciones verificables."
+    },
+    {
+      "query_id": "Q19",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "LoRA mitigates forgetting more than weight decay and dropout and keeps diverse generations",
+          "verdict": "supported",
+          "evidence": "2405.09673-P03"
+        }
+      ],
+      "note": "Es fiel a P03, pero no responde la pregunta: omite que LoRA 'substantially underperforms full finetuning' (2405.09673-P02, presente en el contexto)."
+    },
+    {
+      "query_id": "Q19",
+      "mode": "closed_book",
+      "answer_correctness": "partial",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "LoRA is not comparable to full fine-tuning in quality",
+          "verdict": "supported",
+          "evidence": "2405.09673-P02 (corpus)"
+        }
+      ],
+      "note": "La afirmación es compatible con Biderman et al., pero la etiqueta agree es incorrecta e ignora a Hu et al."
+    },
+    {
+      "query_id": "Q21",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "State space models such as Mamba outperform Transformers",
+          "verdict": "unsupported",
+          "evidence": "el contexto (Linformer, GPTQ, Transformer) no menciona Mamba"
+        }
+      ],
+      "note": "Falla de abstención. Cita 5 passages irrelevantes para dar apariencia de respaldo."
+    },
+    {
+      "query_id": "Q21",
+      "mode": "closed_book",
+      "answer_correctness": "partial",
+      "citation_score": null,
+      "claims": [],
+      "note": "Se abstiene en el texto, pero con relation=neutral en vez de insufficient_evidence. Schema inválido."
+    },
+    {
+      "query_id": "Q22",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "Chinchilla uses substantially less compute for fine-tuning and inference",
+          "verdict": "supported",
+          "evidence": "2203.15556-P04"
+        }
+      ],
+      "note": "Es fiel a la evidencia, pero no responde la pregunta y no se abstiene. El distractor léxico (Chinchilla) induce una respuesta sobre otro tema."
+    },
+    {
+      "query_id": "Q22",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [],
+      "note": "answer='0.0': sin contenido."
+    }
+  ]
+}

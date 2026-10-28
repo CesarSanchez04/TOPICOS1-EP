@@ -1,0 +1,15 @@
+# Examen Parcial CC0F4 - versiones con las que se ejecutaron los experimentos (Python 3.12.3, macOS arm64, CPU)
+torch==2.14.1
+transformers==5.21.0
+sentence-transformers==6.2.0
+faiss-cpu==1.15.1
+rank-bm25==0.2.2
+pydantic==2.14.1
+numpy==2.5.4
+pandas==3.1.0
+matplotlib==3.11.2
+# Cuaderno
+jupyterlab==4.6.4
+ipykernel==6.31.0
+nbformat==5.11.1
+nbconvert==7.17.2

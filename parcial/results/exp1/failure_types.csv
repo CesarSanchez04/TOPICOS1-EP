@@ -1,0 +1,5 @@
+condition,PARTIAL_RECALL,RANKING_ERROR,RETRIEVAL_MISS,RETRIEVAL_OK
+BM25_only,12,1,1,6
+A_dense,14,0,0,6
+B_hybrid_rrf,14,1,0,5
+C_hybrid_rrf_reranker,14,0,0,6

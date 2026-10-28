@@ -1,0 +1,13 @@
+case_id,description,fault,expected,observed,match,error_code,retryable,temporally_valid,attempts,latency_ms
+T01,válida: Chinchilla (2022) cita a Kaplan (2020),none,ok,ok,True,,,True,1,0.56
+T02,válida con veredicto negativo: Kaplan no puede citar a Chinchilla,none,ok,ok,True,,,False,1,0.02
+T03,entrada inválida: formato de ID,none,validation,validation,True,invalid_arguments,False,,0,0.08
+T04,entrada inválida: campo extra no permitido,none,validation,validation,True,invalid_arguments,False,,0,0.01
+T05,error de dominio: artículo fuera del catálogo,none,domain,domain,True,unknown_paper,False,,0,0.01
+T06,error de dominio: autocita,none,domain,domain,True,self_citation,False,,0,0.01
+T07,fallo transitorio una vez -> retry exitoso,transient_once,ok,ok,True,,,True,2,21.17
+T08,timeout una vez -> retry exitoso,slow_once,ok,ok,True,,,True,2,122.41
+T09,timeout persistente -> deadline agotado,slow_always,timeout,timeout,True,attempt_timeout,True,,3,365.73
+T10,salida que viola el contrato,bad_output,output_contract,output_contract,True,invalid_tool_output,False,,1,0.14
+T11,herramienta no permitida (allowlist),none,protocol,protocol,True,unknown_tool,False,,0,0.02
+T12,ToolCall mal formada,none,protocol,protocol,True,malformed_tool_call,False,,0,0.05

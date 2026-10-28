@@ -1,0 +1,7 @@
+[PREGUNTA]
+{query}
+
+[EVIDENCIA]
+{context}
+
+Devuelve solo el JSON.

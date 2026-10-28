@@ -1,0 +1,362 @@
+{
+  "protocol": {
+    "auditor": "César Augusto Sánchez Malaspina",
+    "date": "2026-10-27",
+    "answer_correctness": "correct | partial | incorrect frente a reference_answers.jsonl (relación + key_facts).",
+    "citation_score": "1 = todas las citas respaldan la afirmación; 0.5 = al menos una cita respalda y el resto es irrelevante; 0 = ninguna respalda, alguna contradice o no hay citas cuando se afirma algo; null = closed-book (no se esperan citas). En closed-book se asigna 0 cuando el modelo inventa 'citas' en texto libre.",
+    "faithfulness": "La respuesta se descompone en afirmaciones atómicas. En RAG cada afirmación se contrasta con los passages del contexto entregado; en closed-book, con el corpus completo. Veredicto: supported | unsupported | contradicted.",
+    "note": "Auditoría manual. No se usó un LLM como juez."
+  },
+  "items": [
+    {
+      "query_id": "Q01",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Kaplan and Chinchilla agree on how to split the compute budget",
+          "verdict": "contradicted",
+          "evidence": "2203.15556-P01, 2203.15556-P02"
+        }
+      ],
+      "note": "Cita 2001.08361-P01/P02 (ley de potencia y ancho/profundidad), que no tratan la asignación. 2203.15556-P02 contradice la afirmación. Además, 2001.08361-P03 (grado 2) no llegó al contexto: el fallo combina un recall parcial con un error de generación."
+    },
+    {
+      "query_id": "Q01",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Kaplan and Chinchilla agree on an optimal balance",
+          "verdict": "contradicted",
+          "evidence": "2001.08361-P03 vs 2203.15556-P02"
+        },
+        {
+          "claim": "Chinchilla: more training tokens give better performance with fewer parameters",
+          "verdict": "supported",
+          "evidence": "2203.15556-P03"
+        }
+      ],
+      "note": "Schema inválido: answer='yes' viola min_length. Escribe afirmaciones de texto libre en citations."
+    },
+    {
+      "query_id": "Q02",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Emergent abilities can be a real effect of scale",
+          "verdict": "supported",
+          "evidence": "2206.07682-P02"
+        },
+        {
+          "claim": "The papers agree (relation=agree)",
+          "verdict": "contradicted",
+          "evidence": "2304.15004-P02"
+        }
+      ],
+      "note": "Cita los 5 passages del contexto, incluido 2304.15004-P02, que contradice su conclusión. Ignora el contraargumento de Schaeffer."
+    },
+    {
+      "query_id": "Q02",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "No studies compared emergence with the evaluation metrics",
+          "verdict": "contradicted",
+          "evidence": "2304.15004-P02, 2304.15004-P03"
+        }
+      ],
+      "note": "Pone el texto 'insufficient_evidence' en answer, pero relation=neutral."
+    },
+    {
+      "query_id": "Q07",
+      "mode": "rag",
+      "answer_correctness": "correct",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "RAG is superior to unsupervised fine-tuning for incorporating new factual knowledge",
+          "verdict": "supported",
+          "evidence": "2312.05934-P03"
+        }
+      ],
+      "note": "Respuesta correcta y fiel al contexto, pero sin citas: correcta pero no verificable. La validación semántica lo detecta."
+    },
+    {
+      "query_id": "Q07",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "There is no specific data comparing both methods",
+          "verdict": "contradicted",
+          "evidence": "2312.05934-P03"
+        }
+      ],
+      "note": "Schema inválido: falta confidence. Responde en español dentro de citations."
+    },
+    {
+      "query_id": "Q09",
+      "mode": "rag",
+      "answer_correctness": "partial",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "Multi-query attention reduces model quality compared with multi-head attention",
+          "verdict": "supported",
+          "evidence": "1911.02150-P03, 2305.13245-P01"
+        }
+      ],
+      "note": "Relación correcta. Omite que la degradación es 'minor' y que GQA recupera la calidad. 2305.13245-P01 respalda la afirmación; 1911.02150-P02 solo describe MQA."
+    },
+    {
+      "query_id": "Q09",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Sharing K/V does not degrade quality ('no')",
+          "verdict": "contradicted",
+          "evidence": "1911.02150-P03, 2305.13245-P01"
+        }
+      ],
+      "note": "Schema inválido: answer='no'."
+    },
+    {
+      "query_id": "Q10",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "DPO is superior to PPO ('Yes')",
+          "verdict": "contradicted",
+          "evidence": "2404.10719-P04"
+        }
+      ],
+      "note": "Schema inválido (answer='Yes'). Interpreta 'agree' como 'sí' a la pregunta y cita 2404.10719-P02/P03, que concluyen lo contrario."
+    },
+    {
+      "query_id": "Q10",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "DPO is superior to PPO ('Yes')",
+          "verdict": "contradicted",
+          "evidence": "2404.10719-P04"
+        }
+      ],
+      "note": "Schema inválido: answer='Yes'."
+    },
+    {
+      "query_id": "Q12",
+      "mode": "rag",
+      "answer_correctness": "correct",
+      "citation_score": 0.5,
+      "claims": [
+        {
+          "claim": "4-bit weight quantization preserves LLM performance",
+          "verdict": "supported",
+          "evidence": "2402.16775-P03"
+        }
+      ],
+      "note": "Correcta. 2402.16775-P03 respalda la afirmación; 2402.16775-P01 y 2305.14314-P04 no aportan evidencia específica."
+    },
+    {
+      "query_id": "Q12",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Performance can be affected by 4-bit quantization",
+          "verdict": "unsupported",
+          "evidence": "(vaga; el corpus reporta degradación despreciable)"
+        }
+      ],
+      "note": "Relación neutral sin sustento."
+    },
+    {
+      "query_id": "Q13",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Quantization can sometimes make inference faster",
+          "verdict": "unsupported",
+          "evidence": "ningún passage del contexto lo afirma; 2210.17323-P05 no se recuperó"
+        },
+        {
+          "claim": "Quantization reduces memory usage",
+          "verdict": "supported",
+          "evidence": "2208.07339-P01"
+        },
+        {
+          "claim": "Quantization reduces computational overhead",
+          "verdict": "contradicted",
+          "evidence": "2402.16775-P04"
+        }
+      ],
+      "note": "Cita 2402.16775-P04, que dice que la cuantización puede ralentizar la inferencia: la cita contradice la respuesta. El gold 2210.17323-P05 no llegó al contexto."
+    },
+    {
+      "query_id": "Q13",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Quantization always makes inference faster ('yes')",
+          "verdict": "contradicted",
+          "evidence": "2402.16775-P04"
+        }
+      ],
+      "note": "Schema inválido: answer='yes'."
+    },
+    {
+      "query_id": "Q17",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Dense retrievers outperform BM25, particularly in zero-shot settings",
+          "verdict": "contradicted",
+          "evidence": "2104.08663-P03"
+        }
+      ],
+      "note": "Caso más claro de infidelidad: la cita principal (BEIR P03) dice exactamente lo contrario. El modelo responde con su prior, no con la evidencia."
+    },
+    {
+      "query_id": "Q17",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Dense retrievers outperform BM25 ('Yes')",
+          "verdict": "contradicted",
+          "evidence": "2104.08663-P03"
+        }
+      ],
+      "note": "Schema inválido: answer='Yes'."
+    },
+    {
+      "query_id": "Q18",
+      "mode": "rag",
+      "answer_correctness": "partial",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "Ground-truth labels matter in in-context learning",
+          "verdict": "supported",
+          "evidence": "2205.12685-P03, 2303.03846-P02"
+        }
+      ],
+      "note": "Respalda solo una postura e ignora 2202.12837-P02 (las etiquetas casi no importan). La relación debería ser disagree. No hay citas."
+    },
+    {
+      "query_id": "Q18",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [],
+      "note": "answer='neutral' no contiene ninguna afirmación verificable."
+    },
+    {
+      "query_id": "Q19",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "LoRA mitigates forgetting more than weight decay and dropout and keeps diverse generations",
+          "verdict": "supported",
+          "evidence": "2405.09673-P03"
+        }
+      ],
+      "note": "Es fiel al contexto, pero no responde la pregunta: omite 'LoRA substantially underperforms full finetuning' (2405.09673-P02). No hay citas."
+    },
+    {
+      "query_id": "Q19",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "LoRA focuses on text generation rather than fine-tuning",
+          "verdict": "contradicted",
+          "evidence": "2106.09685-P02"
+        }
+      ],
+      "note": "Alucinación: LoRA es un método de fine-tuning."
+    },
+    {
+      "query_id": "Q21",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "State space models such as Mamba outperform Transformers",
+          "verdict": "unsupported",
+          "evidence": "el contexto (Linformer, GPTQ, Transformer) no menciona Mamba"
+        }
+      ],
+      "note": "Falla de abstención. Ningún passage del contexto es relevante y el modelo afirma de todos modos."
+    },
+    {
+      "query_id": "Q21",
+      "mode": "closed_book",
+      "answer_correctness": "partial",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "No studies compared Mamba with Transformers",
+          "verdict": "unsupported",
+          "evidence": "no verificable en el corpus"
+        }
+      ],
+      "note": "Se abstiene en el texto ('Insufficient evidence'), pero usa relation=neutral en vez de insufficient_evidence."
+    },
+    {
+      "query_id": "Q22",
+      "mode": "rag",
+      "answer_correctness": "incorrect",
+      "citation_score": 0.0,
+      "claims": [
+        {
+          "claim": "relation=agree, answer='Chinchilla'",
+          "verdict": "unsupported",
+          "evidence": "el contexto no menciona Llama 3"
+        }
+      ],
+      "note": "Falla de abstención inducida por un distractor: el contexto trae Chinchilla, que es léxicamente cercano."
+    },
+    {
+      "query_id": "Q22",
+      "mode": "closed_book",
+      "answer_correctness": "incorrect",
+      "citation_score": null,
+      "claims": [
+        {
+          "claim": "Llama 3 was trained on more tokens than the Chinchilla-optimal amount",
+          "verdict": "unsupported",
+          "evidence": "no hay evidencia en el corpus"
+        }
+      ],
+      "note": "Es plausible con conocimiento externo, pero no verificable con el corpus. Según el protocolo pre-registrado debía abstenerse."
+    }
+  ]
+}
